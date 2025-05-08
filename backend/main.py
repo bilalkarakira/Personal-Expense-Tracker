@@ -4,8 +4,8 @@ from fastapi import Depends, FastAPI
 from backend.db import User, create_db_and_tables
 from backend.auth.schemas import UserCreate, UserRead, UserUpdate
 from backend.user.models import auth_backend, current_active_user, fastapi_users
+from backend.transaction.routes import transaction_router
 from backend.expense.routes import expense_router
-
 app = FastAPI()
 
 app.include_router(
@@ -30,6 +30,12 @@ app.include_router(
     fastapi_users.get_users_router(UserRead, UserUpdate),
     prefix="/users",
     tags=["users"],
+)
+
+app.include_router(
+    transaction_router,
+    prefix="/transactions",
+    tags=["transactions"],
 )
 
 app.include_router(
