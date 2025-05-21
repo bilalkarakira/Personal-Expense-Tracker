@@ -21,6 +21,11 @@ class CRUDMixin(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         result = await db.execute(query)
         return result.scalars().all()
     
+    async def get_by_id(self, db: AsyncSession, id: int) -> ModelType | None:
+        query = select(self.model).where(self.model.id == id)
+        result = await db.execute(query)
+        return result.scalar_one_or_none()
+    
     async def create(self, db: AsyncSession, obj_in: CreateSchemaType) -> ModelType:
         obj_in_data = obj_in.dict()
         db_obj = self.model(**obj_in_data)

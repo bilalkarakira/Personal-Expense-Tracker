@@ -13,11 +13,3 @@ class MonthlyExpense(Base):
     budget: Mapped[float] = mapped_column(Float, nullable=False)
     spent: Mapped[float] = mapped_column(Float, nullable=False)
     left_to_spend: Mapped[float] = mapped_column(Float, nullable=False)
-
-    transactions: Mapped[list["Transaction"]] = relationship(
-        "Transaction",
-        back_populates="monthly_expense",
-        primaryjoin="and_(Transaction.monthly_expense_id==MonthlyExpense.id, "
-                   "Transaction.due_date>=MonthlyExpense.start_date, "
-                   "Transaction.due_date<=MonthlyExpense.end_date)"
-    )

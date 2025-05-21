@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 from backend.db import Base
 from backend.transaction.models import Transaction
+from backend.expense.models import MonthlyExpense
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

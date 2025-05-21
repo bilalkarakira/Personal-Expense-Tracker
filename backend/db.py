@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
 from backend.mixin import CRUDMixin
 
-DATABASE_URL = "sqlite+aiosqlite:///./test.db"
+DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5432/expense_tracker"
 Base: DeclarativeMeta = declarative_base()
 
 

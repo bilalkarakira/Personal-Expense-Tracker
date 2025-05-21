@@ -52,7 +52,11 @@ async def create_expense(
         expense_data["spent"] = 0
         expense_data["left_to_spend"] = expense_data["budget"]
         logger.info(f"Creating expense dict: {expense_data}")
-        return await crud_expense.create(db, expense_data)
+        db_expense = MonthlyExpense(**expense_data)
+        db.add(db_expense)
+        await db.commit()
+        await db.refresh(db_expense)
+        return db_expense
     except Exception as e:
         logger.error(f"Error creating expense: {e}")
         raise HTTPException(status_code=500, detail=str(e))

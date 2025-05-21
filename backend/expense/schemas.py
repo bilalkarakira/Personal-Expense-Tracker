@@ -16,4 +16,6 @@ class MonthlyExpenseResponse(BaseModel):
     budget: float
     spent: float
     left_to_spend: float
-    transactions: list[TransactionResponse]
+
+    class Config:
+        from_attributes = True
